@@ -13,3 +13,7 @@ hs_err_pid*
 
 
 System.out.println("Hej Matilda, allt väl?");
+modules.xml
+.idea
+inplupp1.iml
+out
