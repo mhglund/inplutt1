@@ -5,12 +5,48 @@ import java.util.ArrayList;
  */
 
 // Hej hej , nu provar jag denna funktion
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.*;
 
-public class InpluppProgram {
+
+
+	
+public class InpluppProgram extends JFrame implements ActionListener  {
     private ArrayList<Vardesak> saker = new ArrayList<>();
     private ArrayList<Smycke> smycken = new ArrayList<>();
     private ArrayList<Aktie> aktier = new ArrayList<>();
     private ArrayList<Apparat> apparater = new ArrayList<>();
+    
+    private JTextField textFält;
+	private JLabel hälsning;
+	
+
+	public InpluppProgram() {
+		super("Sakregister");
+		setLayout(new BorderLayout());
+		JPanel north = new JPanel();
+		north.add(new JLabel("Värdesaker"));
+		add(north, BorderLayout.NORTH);
+		textFält = new JTextField(8);
+		add(textFält);
+		JButton knapp = new JButton("Hälsa");
+		add(knapp);
+		knapp.addActionListener(this);
+		hälsning = new JLabel("");
+		add(hälsning);
+		
+		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize(200,100);
+		setVisible(true);
+	}
+
+	public void actionPerformed(ActionEvent ave) {
+		String namn = textFält.getText();
+		hälsning.setText("Hej " + namn);
+	}
 
     private void setUp() {
         Smycke s1 = new Smycke("halsband", 2, true);
