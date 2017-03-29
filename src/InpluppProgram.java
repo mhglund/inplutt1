@@ -3,6 +3,9 @@ import java.util.ArrayList;
 /**
  * Created by tildas on 2017-03-22.
  */
+
+// Hej hej , nu provar jag denna funktion
+
 public class InpluppProgram {
     private ArrayList<Vardesak> saker = new ArrayList<>();
     private ArrayList<Smycke> smycken = new ArrayList<>();
