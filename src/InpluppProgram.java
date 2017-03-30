@@ -35,6 +35,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 		JPanel mittPanel = new JPanel();
         add(mittPanel, BorderLayout.CENTER);
+        mittPanel.setLayout(new BorderLayout());
         mittPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		JPanel hogerPanel = new JPanel();
@@ -45,7 +46,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
         // behållare.add(föremål)
 		topPanel.add(new JLabel("Värdesaker"));
 
-        mittPanel.add(skrollPanel);
+        mittPanel.add(skrollPanel, BorderLayout.CENTER);
 
         bottenPanel.add(new JLabel("Nytt: "));
 
