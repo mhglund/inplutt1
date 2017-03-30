@@ -1,5 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.event.*;
 import java.util.*;
 
@@ -14,22 +15,63 @@ public class InpluppProgram extends JFrame implements ActionListener {
 	private ArrayList<Apparat> apparater = new ArrayList<>();
 	private JComboBox<String> box = new JComboBox<>(); // En lista med saker till dropmenyn
 
+	private JRadioButton rNamn = new JRadioButton("Namn", true), rVärde = new JRadioButton("Värde", false);
+	private JTextArea area = new JTextArea(10, 60);
+	
 	private JTextField textFalt;
 	private JLabel label;
 
+
+	//private JTextField textFalt;
+	//private JLabel label;
+    private JTextArea textRuta = new JTextArea("", 18, 17);
+    private JScrollPane skrollPanel = new JScrollPane(textRuta,
+            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+
 	public void fonsterRuta() {
 		setLayout(new BorderLayout());
+
+        //Samlat deklarationen och tilläggningen till fönstret så det blir tydligare
 		JPanel topPanel = new JPanel();
+        // Kan tänka this.add(föremål, position)  -- står det inget innan metoden så kan en tänka
+        // att det är this.metod
+        add(topPanel, BorderLayout.NORTH);
+
 		JPanel bottenPanel = new JPanel();
-		JPanel vansterPanel = new JPanel();
+        add(bottenPanel, BorderLayout.SOUTH);
+
+		JPanel mittPanel = new JPanel();
+        add(mittPanel, BorderLayout.CENTER);
+        mittPanel.setLayout(new BorderLayout());
+        mittPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+
 		JPanel hogerPanel = new JPanel();
+
 		JPanel mittenPanel = new JPanel();
+		
+		
+
+		/*TOPP PANELEN*/
+
+        add(hogerPanel, BorderLayout.EAST);
+        hogerPanel.setBorder(new EmptyBorder(5, 5, 5, 20));
+        hogerPanel.setLayout(new BoxLayout(hogerPanel, BoxLayout.Y_AXIS));
+
+        // behållare.add(föremål)
 
 		topPanel.add(new JLabel("Värdesaker"));
-		add(topPanel, BorderLayout.NORTH);
 
-		bottenPanel.add(textFalt = new JTextField(8));
+
+		
+		/*Botten PANELEN*/
+		bottenPanel.add(new JLabel("Nytt:"));
 		add(bottenPanel, BorderLayout.SOUTH);
+
+        mittPanel.add(skrollPanel, BorderLayout.CENTER);
+
+        bottenPanel.add(new JLabel("Nytt: "));
+
 
 		// objekt som läggs till i droppmenyn
 		box.addItem("Smycke");
@@ -37,19 +79,62 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		box.addItem("Apparat");
 		bottenPanel.add(box);
 
+		
+		
+		bottenPanel.add(new JButton("Visa"));
+		add(bottenPanel, BorderLayout.SOUTH);
+		
+		bottenPanel.add(new JButton("Börskrasch"));
+		add(bottenPanel, BorderLayout.SOUTH);
+		
+		
+		/*HÖGER PANELEN*/
+		hogerPanel.setLayout(new BoxLayout(hogerPanel, BoxLayout.Y_AXIS));
+		hogerPanel.add(new JLabel("Sortering"));
+		add(hogerPanel, BorderLayout.EAST);
+		
+		ButtonGroup rButton = new ButtonGroup();
+		rButton.add(rNamn);
+		rButton.add(rVärde);
+		hogerPanel.add(rNamn, BorderLayout.EAST);
+		hogerPanel.add(rVärde, BorderLayout.EAST);
+		
+		
+		/*CENTER PANELEN*/
+		add(area, BorderLayout.CENTER); // när jag lägger till mittenPanel.add så fungerar det inte.
+		
+		
 		// center verkar inte funka?? gäller det något spec för den?
-		// Kommer förmodligen att fungera efter vi gjort alla andra borderlayouts.
-		JButton knapp = new JButton("Hälsa");
-		mittenPanel.add(knapp);
-		add(mittenPanel, BorderLayout.CENTER);
-		knapp.addActionListener(this);
+		// Jag förstår inte varför CENTER strular så mycket.
+		
+//		JButton knapp = new JButton("Hälsa");
+//		mittenPanel.add(knapp);
+//		add(mittenPanel, BorderLayout.CENTER);
+//		knapp.addActionListener(this);
 
-		label = new JLabel("");
-		add(label);
+		
+		//Denna kod var det som orsakade att CENTER ej visades, vet ej varför. Denna gör dock så att
+		// droppMenyn visar en text när man klickar på någon
+//		label = new JLabel();
+//		add(label);
+
+
+		JButton visaKnapp = new JButton("Visa");
+		bottenPanel.add(visaKnapp);
+		//visaKnapp.addActionListener(this);
+
+        JButton borsKnapp = new JButton("Börskrasch");
+        bottenPanel.add(borsKnapp);
+        //borsKnapp.addActionListener(this);
+
+		hogerPanel.add(new JLabel("Sortering"));
+        hogerPanel.add(new JRadioButton("Namn", true));
+        hogerPanel.add(new JRadioButton("Värde", false));
+
 
 		box.addActionListener(this);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(500, 600);
+		setSize(500, 400);
 		setVisible(true);
 
 	}
@@ -61,11 +146,11 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent ave) { // Jag lade till en lyssnare bara för att se att programmet gav response.
 		if (box.getSelectedIndex() == 0) {
-			label.setText("Du har valt smycke");
+			textRuta.setText("Du har valt smycke");
 		} else if (box.getSelectedIndex() == 1) {
-			label.setText("Du har valt aktie");
+			textRuta.setText("Du har valt aktie");
 		} else if (box.getSelectedIndex() == 2) {
-			label.setText("Du har valt apparat");
+			textRuta.setText("Du har valt apparat");
 		}
 	}
 
@@ -91,7 +176,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 	}
 
 	static {
-		Font f = new Font("Dialog", Font.BOLD, 20);
+		Font f = new Font("Dialog", Font.BOLD, 16);
 		String[] comps = { "Button", "Label", "RadioButton", "CheckBox", "ToggleButton", "TextArea", "TextField",
 				"Menu", "MenuItem", "FileChooser", "Dialog", "OptionPane" };
 		for (String s : comps) {
