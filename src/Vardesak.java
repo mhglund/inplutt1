@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+
 /**
  * Created by tildas on 2017-03-22.
  */
-abstract public class Vardesak {
+
+
+abstract public class Vardesak implements Comparable<Vardesak>{
     private String namn;
     private Double varde;
 
@@ -12,6 +16,10 @@ abstract public class Vardesak {
 
     public String getNamn() {
         return namn;
+    }
+   
+    public int compareTo(Vardesak v){
+    	return namn.compareTo(v.namn);
     }
 
     abstract public Double getVarde();
