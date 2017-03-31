@@ -13,7 +13,10 @@ public class InpluppProgram extends JFrame implements ActionListener {
 	private ArrayList<Smycke> smycken = new ArrayList<>();
 	private ArrayList<Aktie> aktier = new ArrayList<>();
 	private ArrayList<Apparat> apparater = new ArrayList<>();
-	private JComboBox<String> box = new JComboBox<>(); // En lista med saker till dropmenyn
+
+    // Bör kanske deklareras inne i fonsterRuta?
+    private String[] vardesaker = {"Smycke", "Aktie", "Apparat"};   // För att få kortare kod
+	private JComboBox<String> box = new JComboBox<>(vardesaker); // En lista med saker till dropmenyn
 
 <<<<<<< HEAD
 	private JRadioButton rNamn = new JRadioButton("Namn", true), rVärde = new JRadioButton("Värde", false);
@@ -93,12 +96,18 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
         bottenPanel.add(new JLabel("Nytt: "));
 
+<<<<<<< HEAD
 
 		// objekt som läggs till i droppmenyn
 		box.addItem("Smycke");
 		box.addItem("Aktie");
 		box.addItem("Apparat");
 		bottenPanel.add(box);
+=======
+		// droppmenyn läggs till
+        //box.addActionListener(new lyssnare());
+        bottenPanel.add(box);
+>>>>>>> 6ed635a767639f944e35b5025dd801d58a5de783
 
 <<<<<<< HEAD
 		
@@ -166,6 +175,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		box.addActionListener(this);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(500, 400);
+        setLocation(300, 200);
 		setVisible(true);
 
 	}
@@ -175,15 +185,59 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 	}
 
+	// Går det att göra en snygg lösning (inre klasser) till en JComboBox?
+	/*class lyssnare implements ActionListener {
+
+    }*/
+
 	public void actionPerformed(ActionEvent ave) { // Jag lade till en lyssnare bara för att se att programmet gav response.
 		if (box.getSelectedIndex() == 0) {
 			textRuta.setText("Du har valt smycke");
+            nyttSmycke();
 		} else if (box.getSelectedIndex() == 1) {
 			textRuta.setText("Du har valt aktie");
 		} else if (box.getSelectedIndex() == 2) {
 			textRuta.setText("Du har valt apparat");
 		}
 	}
+
+	// Detta kanske bör vara en egen klass? -- ej färdig metod
+	public void nyttSmycke() {
+        JPanel form = new JPanel();
+        form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
+        JPanel rad1 = new JPanel();
+        JTextField smyckesNamn = new JTextField(10);
+        rad1.add(new JLabel("Namn:"));
+        rad1.add(smyckesNamn);
+        form.add(rad1);
+        JPanel rad2 = new JPanel();
+        JTextField stenar = new JTextField(10);
+        rad2.add(new JLabel("Stenar:"));
+        rad2.add(stenar);
+        form.add(rad2);
+        JPanel rad3 = new JPanel();
+        JCheckBox guld = new JCheckBox();
+        rad3.add(new )
+        while (true) {
+            JOptionPane.showConfirmDialog(null, form, "Nytt smycke",
+                    JOptionPane.OK_CANCEL_OPTION);
+            if (smyckesNamn.getText() == null || smyckesNamn.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Fyll i namnet!",
+                        "Fel", JOptionPane.ERROR_MESSAGE);
+                continue;
+            }
+            try {
+                String namn = smyckesNamn.getText();
+                int antalStenar = Integer.parseInt(stenar.getText());
+                break;
+            } catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Fel format!",
+                        "Fel", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    }
+
 
 	private void setUp() {
 		Smycke s1 = new Smycke("halsband", 2, true);
