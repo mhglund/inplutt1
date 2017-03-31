@@ -15,11 +15,19 @@ public class InpluppProgram extends JFrame implements ActionListener {
 	private ArrayList<Apparat> apparater = new ArrayList<>();
 	private JComboBox<String> box = new JComboBox<>(); // En lista med saker till dropmenyn
 
+<<<<<<< HEAD
 	private JRadioButton rNamn = new JRadioButton("Namn", true), rVärde = new JRadioButton("Värde", false);
 	private JTextArea area = new JTextArea(10, 60);
 	
 	private JTextField textFalt;
 	private JLabel label;
+=======
+	//private JTextField textFalt;
+	//private JLabel label;
+    private JTextArea textRuta = new JTextArea("", 18, 17);
+    private JScrollPane skrollPanel = new JScrollPane(textRuta,
+            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+>>>>>>> 141c16f0db0900bdcfde7025e741da17d64c1e28
 
 
 	//private JTextField textFalt;
@@ -47,6 +55,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
         mittPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		JPanel hogerPanel = new JPanel();
+<<<<<<< HEAD
 
 		JPanel mittenPanel = new JPanel();
 		
@@ -59,14 +68,26 @@ public class InpluppProgram extends JFrame implements ActionListener {
         hogerPanel.setLayout(new BoxLayout(hogerPanel, BoxLayout.Y_AXIS));
 
         // behållare.add(föremål)
+=======
+        add(hogerPanel, BorderLayout.EAST);
+        hogerPanel.setBorder(new EmptyBorder(5, 5, 5, 20));
+        hogerPanel.setLayout(new BoxLayout(hogerPanel, BoxLayout.Y_AXIS));
+>>>>>>> 141c16f0db0900bdcfde7025e741da17d64c1e28
 
+        // behållare.add(föremål)
 		topPanel.add(new JLabel("Värdesaker"));
 
+<<<<<<< HEAD
 
 		
 		/*Botten PANELEN*/
 		bottenPanel.add(new JLabel("Nytt:"));
 		add(bottenPanel, BorderLayout.SOUTH);
+=======
+        mittPanel.add(skrollPanel, BorderLayout.CENTER);
+
+        bottenPanel.add(new JLabel("Nytt: "));
+>>>>>>> 141c16f0db0900bdcfde7025e741da17d64c1e28
 
         mittPanel.add(skrollPanel, BorderLayout.CENTER);
 
@@ -79,6 +100,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		box.addItem("Apparat");
 		bottenPanel.add(box);
 
+<<<<<<< HEAD
 		
 		
 		bottenPanel.add(new JButton("Visa"));
@@ -119,6 +141,8 @@ public class InpluppProgram extends JFrame implements ActionListener {
 //		add(label);
 
 
+=======
+>>>>>>> 141c16f0db0900bdcfde7025e741da17d64c1e28
 		JButton visaKnapp = new JButton("Visa");
 		bottenPanel.add(visaKnapp);
 		//visaKnapp.addActionListener(this);
@@ -126,11 +150,18 @@ public class InpluppProgram extends JFrame implements ActionListener {
         JButton borsKnapp = new JButton("Börskrasch");
         bottenPanel.add(borsKnapp);
         //borsKnapp.addActionListener(this);
+<<<<<<< HEAD
 
 		hogerPanel.add(new JLabel("Sortering"));
         hogerPanel.add(new JRadioButton("Namn", true));
         hogerPanel.add(new JRadioButton("Värde", false));
 
+=======
+
+		hogerPanel.add(new JLabel("Sortering"));
+        hogerPanel.add(new JRadioButton("Namn", true));
+        hogerPanel.add(new JRadioButton("Värde", false));
+>>>>>>> 141c16f0db0900bdcfde7025e741da17d64c1e28
 
 		box.addActionListener(this);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
