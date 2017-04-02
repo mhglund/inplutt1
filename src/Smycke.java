@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by tildas on 2017-03-22.
  */
@@ -22,7 +24,7 @@ public class Smycke extends Vardesak {
 	}
 
 	public String getMaterialNamn() {
-		if(material) {
+		if (material) {
 			return "Guld";
 		} else {
 			return "Silver";
@@ -30,7 +32,7 @@ public class Smycke extends Vardesak {
 	}
 
 	public Double getVarde() {
-		if(material) {
+		if (material) {
 			tempVarde = 2000.00;
 		} else {
 			tempVarde = 700.00;
@@ -38,7 +40,6 @@ public class Smycke extends Vardesak {
 		return (tempVarde + (500 * antalStenar));
 
 	}
-
 
 	public String toString() {
 		return "Namn: " + this.getNamn() + " | Material: " + this.getMaterialNamn()

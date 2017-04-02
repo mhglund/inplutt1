@@ -1,15 +1,17 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.event.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * inlupp 1 PROG2
  */
 
 public class InpluppProgram extends JFrame implements ActionListener {
-	// private ArrayList<Vardesak> saker = new ArrayList<>();
+	private ArrayList<Vardesak> saker = new ArrayList<>(); //Återaktiverade denna för att sortera objekten
 	private ArrayList<Smycke> smycken = new ArrayList<>();
 	private ArrayList<Aktie> aktier = new ArrayList<>();
 	private ArrayList<Apparat> apparater = new ArrayList<>();
@@ -18,11 +20,16 @@ public class InpluppProgram extends JFrame implements ActionListener {
 	private String[] vardesaker = {"Välj värdesak", "Smycke", "Aktie", "Apparat"};   // För att få kortare kod
 	private JComboBox<String> box = new JComboBox<>(vardesaker); // En lista med saker till dropmenyn
 
-	//private JTextField textFalt;
-	//private JLabel label;
+	// private JTextField textFalt;
+	// private JLabel label;
 	private JTextArea textRuta = new JTextArea("", 18, 17);
-	private JScrollPane skrollPanel = new JScrollPane(textRuta,
-			JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	private JScrollPane skrollPanel = new JScrollPane(textRuta, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+			JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+	public void run() { // la till run() för att ha metoderna här
+		fonsterRuta();
+		SortByName();
+	}
 
 	public void fonsterRuta() {
 		setLayout(new BorderLayout());
@@ -54,7 +61,6 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		bottenPanel.add(new JLabel("Nytt: "));
 
 		// droppmenyn läggs till
-		//box.addActionListener(new lyssnare());
 		bottenPanel.add(box);
 
 		JButton visaKnapp = new JButton("Visa");
@@ -77,15 +83,24 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 	}
 
-	public InpluppProgram() {
-		super("Sakregister");
+	public void SortByName() { //Jag la till varje sak i värdesaks arraylisten, måste vi ha en arraylis för varje objekt?
 
+		for (Smycke s : smycken) {
+			saker.add(s);
+		}
+		for (Aktie a : aktier) {
+			saker.add(a);
+		}
+		for (Apparat app : apparater) {
+			saker.add(app);
+		}
+		System.out.println(saker);
 	}
 
-	// Går det att göra en snygg lösning (inre klasser) till en JComboBox?
-	/*class lyssnare implements ActionListener {
+	public InpluppProgram() {
+		super("Sakregister");
+	}
 
-	}*/
 
 	public void actionPerformed(ActionEvent ave) { // Jag lade till en lyssnare bara för att se att programmet gav response.
 		if (box.getSelectedIndex() == 1) {
@@ -151,10 +166,11 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 	}
 
-
 	private void setUp() {
-		Smycke s1 = new Smycke("halsband", 2, true);
+		Smycke s1 = new Smycke("halsband", 12, true);
 		smycken.add(s1);
+		Smycke s2 = new Smycke("Armband", 3, true);
+		smycken.add(s2);
 		Aktie ak1 = new Aktie("Ericsson", 4, 0.25);
 		aktier.add(ak1);
 		Apparat ap1 = new Apparat("teve", 3000.00, 5);
@@ -163,13 +179,22 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		System.out.println(smycken.get(0));
 		System.out.println(aktier.get(0));
 		System.out.println(apparater.get(0));
+
+		Apparat ap2 = new Apparat("Ipad", 3000.00, 1);
+		apparater.add(ap2);
+		Apparat ap3 = new Apparat("Android", 2000.00, 7);
+		apparater.add(ap3);
+
+		Collections.sort(smycken);  // <-- Jag vill lägga denna kod på ett annat ställe, men det gick inte så bra. Koden fick förbli kvar.
+		Collections.sort(aktier);
+		Collections.sort(apparater);
+
 	}
 
 	public static void main(String args[]) {
 		InpluppProgram program = new InpluppProgram();
-
 		program.setUp();
-		program.fonsterRuta();
+		program.run();
 
 	}
 
