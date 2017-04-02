@@ -41,8 +41,8 @@ public class Smycke extends Vardesak {
 
 
     public String toString() {
-        // felet var att vi inte anropade getRealVarde()...
-        return this.getNamn() + " " + this.getMaterialNamn() + " " + this.getRealVarde();
+        return "Namn: " + this.getNamn() + " | Material: " + this.getMaterialNamn()
+                + " | Värde: " + this.getRealVarde();
     }
 
 }

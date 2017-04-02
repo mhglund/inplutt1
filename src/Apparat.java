@@ -16,7 +16,12 @@ public class Apparat extends Vardesak {
         return (inkopspris * (slitage/10.0));
     }
 
+    public int getSlitage() {
+        return slitage;
+    }
+
     public String toString() {
-        return this.getNamn() + " " + this.inkopspris + " " + this.getRealVarde();
+        return "Namn: " + this.getNamn() + " | Inköpspris: " + this.inkopspris
+                + " | Slitage: " + this.getSlitage() + " | Värde: " + this.getRealVarde();
     }
 }

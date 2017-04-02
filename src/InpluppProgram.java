@@ -15,7 +15,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
     private ArrayList<Apparat> apparater = new ArrayList<>();
 
     // Bör kanske deklareras inne i fonsterRuta?
-    private String[] vardesaker = {"Smycke", "Aktie", "Apparat"};   // För att få kortare kod
+    private String[] vardesaker = {"Välj värdesak", "Smycke", "Aktie", "Apparat"};   // För att få kortare kod
     private JComboBox<String> box = new JComboBox<>(vardesaker); // En lista med saker till dropmenyn
 
     //private JTextField textFalt;
@@ -88,12 +88,12 @@ public class InpluppProgram extends JFrame implements ActionListener {
     }*/
 
     public void actionPerformed(ActionEvent ave) { // Jag lade till en lyssnare bara för att se att programmet gav response.
-        if (box.getSelectedIndex() == 0) {
+        if (box.getSelectedIndex() == 1) {
             textRuta.setText("Du har valt smycke");
             nyttSmycke();
-        } else if (box.getSelectedIndex() == 1) {
-            textRuta.setText("Du har valt aktie");
         } else if (box.getSelectedIndex() == 2) {
+            textRuta.setText("Du har valt aktie");
+        } else if (box.getSelectedIndex() == 3) {
             textRuta.setText("Du har valt apparat");
         }
     }
@@ -112,12 +112,19 @@ public class InpluppProgram extends JFrame implements ActionListener {
         rad2.add(new JLabel("Stenar:"));
         rad2.add(stenar);
         form.add(rad2);
-        //JPanel rad3 = new JPanel();
-        //JCheckBox guld = new JCheckBox();
-        //rad3.add(new )
+        JPanel rad3 = new JPanel();
+        JCheckBox guld = new JCheckBox();
+        rad3.add(new JLabel("Guld: "));
+        rad3.add(guld);
+        form.add(rad3);
+
         while (true) {
-            JOptionPane.showConfirmDialog(null, form, "Nytt smycke",
+            int test = JOptionPane.showConfirmDialog(null, form, "Nytt smycke",
                     JOptionPane.OK_CANCEL_OPTION);
+            // kollar ifall användaren trycker på "Avbryt"
+            if (test == 2) {
+                break;
+            }
             if (smyckesNamn.getText() == null || smyckesNamn.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Fyll i namnet!",
                         "Fel", JOptionPane.ERROR_MESSAGE);
@@ -126,6 +133,15 @@ public class InpluppProgram extends JFrame implements ActionListener {
             try {
                 String namn = smyckesNamn.getText();
                 int antalStenar = Integer.parseInt(stenar.getText());
+                Smycke s1;
+                if (guld.isSelected()) {
+                    s1 = new Smycke(namn, antalStenar, true);
+                    smycken.add(s1);
+                } else {
+                    s1 = new Smycke(namn, antalStenar, false);
+                    smycken.add(s1);
+                }
+                System.out.println(s1);
                 break;
             } catch(NumberFormatException e){
                 JOptionPane.showMessageDialog(null, "Fel format!",
