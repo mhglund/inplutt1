@@ -4,17 +4,18 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.event.*;
 import java.util.*;
-import java.util.List;
 
 /**
  * inlupp 1 PROG2
  */
 
 public class InpluppProgram extends JFrame implements ActionListener {
-	private ArrayList<Vardesak> saker = new ArrayList<>(); // Återaktiverade denna för att sortera objekten
-//	private ArrayList<Smycke> smycken = new ArrayList<>();
-//	private ArrayList<Aktie> aktier = new ArrayList<>();
-//	private ArrayList<Apparat> apparater = new ArrayList<>();
+	private ArrayList<Vardesak> saker = new ArrayList<>(); // Återaktiverade
+															// denna för att
+															// sortera objekten
+	// private ArrayList<Smycke> smycken = new ArrayList<>();
+	// private ArrayList<Aktie> aktier = new ArrayList<>();
+	// private ArrayList<Apparat> apparater = new ArrayList<>();
 
 	// Bör kanske deklareras inne i fonsterRuta?
 	private String[] vardesaker = { "Välj värdesak", "Smycke", "Aktie", "Apparat" };
@@ -28,7 +29,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 	public void run() { // la till run() för att ha metoderna här
 		fonsterRuta();
-		//sortByName();
+		// sortByName();
 		sortVarde();
 	}
 
@@ -68,7 +69,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 		JButton visaKnapp = new JButton("Visa");
 		bottenPanel.add(visaKnapp);
-		// visaKnapp.addActionListener(this);
+		visaKnapp.addActionListener(new VisaLyss());
 
 		JButton borsKnapp = new JButton("Börskrasch");
 		bottenPanel.add(borsKnapp);
@@ -91,32 +92,37 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 	}
 
-	public void sortByName() { // Jag la till varje sak i värdesaks arraylisten måste vi ha en arraylis för varje objekt?
-					
-		
+	public ArrayList<Vardesak> sortByName() { // Jag la till varje sak i värdesaks arraylisten
+								// måste vi ha en arraylis för varje objekt?
+		ArrayList<Vardesak> sorteradLista = new ArrayList<>();
+
 		for (Vardesak sak : saker) {
 			sak.compareTo(sak);
 		}
 		System.out.println(saker);
-		
+		return sorteradLista;
+
 	}
 
 	public void sortVarde() {
-		for (Vardesak v : saker){
-			v.sortVarde(v);
-			
-			
-			if(v.getRealVarde() < 500.0){
-				System.out.println(v.getNamn());
-				System.out.println(v.getRealVarde());
-			}
+		for (Vardesak v : saker) {
+			v.compareTo(v);
 		}
+		System.out.println(saker);
 	}
 
 	public InpluppProgram() {
 		super("Sakregister");
 	}
 
+	class VisaLyss implements ActionListener {
+		public void actionPerformed(ActionEvent ave) {
+			textRuta.setText("");
+			for (Vardesak v : saker) {
+				textRuta.append(v.toString() + "\n");
+			}
+		}
+	}
 
 	public void actionPerformed(ActionEvent ave) {
 		if (box.getSelectedIndex() == 1) {
@@ -145,7 +151,8 @@ public class InpluppProgram extends JFrame implements ActionListener {
 			}
 			try {
 
-				//stilfråga -- hämta ut och lagra i variabler eller hämta direkt sen
+				// stilfråga -- hämta ut och lagra i variabler eller hämta
+				// direkt sen
 				String namn = form.getNamn();
 				int stenar = form.getStenar();
 				boolean guld = form.getGuld();
@@ -169,19 +176,18 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		Apparat ap1 = new Apparat("teve", 3000.00, 5);
 		saker.add(ap1);
 
-//		System.out.println(saker.get(0));
-//		System.out.println(saker.get(1));
-//		System.out.println(saker.get(2));
+		// System.out.println(saker.get(0));
+		// System.out.println(saker.get(1));
+		// System.out.println(saker.get(2));
 
 		Apparat ap2 = new Apparat("Ipad", 3000.00, 1);
 		saker.add(ap2);
 		Apparat ap3 = new Apparat("Android", 2000.00, 7);
 		saker.add(ap3);
 
-		Collections.sort(saker); // <-- Jag vill lägga denna kod på ett annat
+		//Collections.sort(saker); // <-- Jag vill lägga denna kod på ett annat
 									// ställe, men det gick inte så bra. Koden
 									// fick förbli kvar.
-		
 
 	}
 

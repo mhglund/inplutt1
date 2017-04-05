@@ -22,8 +22,8 @@ abstract public class Vardesak implements Comparable<Vardesak>{
     	return namn.compareTo(v.namn);
     }
 
-    public void sortVarde(Vardesak v) {
-		
+    public double sortVarde(Vardesak v) {
+		return varde.compareTo(v.varde);
     	
     	
     }
