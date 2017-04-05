@@ -23,7 +23,9 @@ abstract public class Vardesak implements Comparable<Vardesak>{
     }
 
     public void sortVarde(Vardesak v) {
-    	System.out.println(v.varde);
+		
+    	
+    	
     }
     
 	abstract public Double getVarde();
