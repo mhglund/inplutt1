@@ -18,7 +18,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 	// Bör kanske deklareras inne i fonsterRuta?
 	private String[] vardesaker = { "Välj värdesak", "Smycke", "Aktie", "Apparat" };
-	private JComboBox<String> box = new JComboBox<>(vardesaker); 
+	private JComboBox<String> box = new JComboBox<>(vardesaker);
 
 	// private JTextField textFalt;
 	// private JLabel label;
@@ -117,9 +117,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		super("Sakregister");
 	}
 
-	public void actionPerformed(ActionEvent ave) { // Jag lade till en lyssnare
-													// bara för att se att
-													// programmet gav response.
+	public void actionPerformed(ActionEvent ave) {
 		if (box.getSelectedIndex() == 1) {
 			textRuta.setText("Du har valt smycke");
 			nyttSmycke();
@@ -130,54 +128,33 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		}
 	}
 
-	// Detta kanske bör vara en egen klass? -- ej färdig metod
 	public void nyttSmycke() {
-		JPanel form = new JPanel();
-		form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
-		JPanel rad1 = new JPanel();
-		JTextField smyckesNamn = new JTextField(10);
-		rad1.add(new JLabel("Namn:"));
-		rad1.add(smyckesNamn);
-		form.add(rad1);
-		JPanel rad2 = new JPanel();
-		JTextField stenar = new JTextField(10);
-		rad2.add(new JLabel("Stenar:"));
-		rad2.add(stenar);
-		form.add(rad2);
-		JPanel rad3 = new JPanel();
-		JCheckBox guld = new JCheckBox();
-		rad3.add(new JLabel("Guld: "));
-		rad3.add(guld);
-		form.add(rad3);
+		NyttSmycke form = new NyttSmycke();
 
 		while (true) {
 			int test = JOptionPane.showConfirmDialog(null, form, "Nytt smycke", JOptionPane.OK_CANCEL_OPTION);
-			// kollar ifall användaren trycker på "Avbryt"
-			if (test == 2) {
+			System.out.println(test);
+			// kollar ifall användaren trycker på "Avbryt" eller kryssrutan
+			if (test == 2 || test == -1) {
 				break;
 			}
-			if (smyckesNamn.getText() == null || smyckesNamn.getText().equals("")) {
+			if (form.getNamn() == null || form.getNamn().equals("")) {
 				JOptionPane.showMessageDialog(null, "Fyll i namnet!", "Fel", JOptionPane.ERROR_MESSAGE);
 				continue;
 			}
 			try {
-				String namn = smyckesNamn.getText();
-				int antalStenar = Integer.parseInt(stenar.getText());
-				Smycke s1;
-				if (guld.isSelected()) {
-					s1 = new Smycke(namn, antalStenar, true);
-					smycken.add(s1);
-				} else {
-					s1 = new Smycke(namn, antalStenar, false);
-					smycken.add(s1);
-				}
+				//stilfråga -- hämta ut och lagra i variabler eller hämta direkt sen
+				String namn = form.getNamn();
+				int stenar = form.getStenar();
+				boolean guld = form.getGuld();
+				Smycke s1 = new Smycke(namn, stenar, guld);
+				saker.add(s1);
 				System.out.println(s1);
 				break;
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Fel format!", "Fel", JOptionPane.ERROR_MESSAGE);
 			}
 		}
-
 	}
 
 	private void setUp() {
