@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by tildas on 2017-03-22.
@@ -21,6 +22,10 @@ abstract public class Vardesak implements Comparable<Vardesak>{
     	return namn.compareTo(v.namn);
     }
 
+    public void sortVarde(Vardesak v) {
+    	System.out.println(v.varde);
+    }
+    
 	abstract public Double getVarde();
 
 	public Double getRealVarde() {

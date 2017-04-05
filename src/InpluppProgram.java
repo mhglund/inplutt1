@@ -11,14 +11,23 @@ import java.util.List;
  */
 
 public class InpluppProgram extends JFrame implements ActionListener {
-	private ArrayList<Vardesak> saker = new ArrayList<>(); //Återaktiverade denna för att sortera objekten
+	private ArrayList<Vardesak> saker = new ArrayList<>(); // Återaktiverade
+															// denna för att
+															// sortera objekten
 	private ArrayList<Smycke> smycken = new ArrayList<>();
 	private ArrayList<Aktie> aktier = new ArrayList<>();
 	private ArrayList<Apparat> apparater = new ArrayList<>();
 
 	// Bör kanske deklareras inne i fonsterRuta?
-	private String[] vardesaker = {"Välj värdesak", "Smycke", "Aktie", "Apparat"};   // För att få kortare kod
-	private JComboBox<String> box = new JComboBox<>(vardesaker); // En lista med saker till dropmenyn
+	private String[] vardesaker = { "Välj värdesak", "Smycke", "Aktie", "Apparat" }; // För
+																						// att
+																						// få
+																						// kortare
+																						// kod
+	private JComboBox<String> box = new JComboBox<>(vardesaker); // En lista med
+																	// saker
+																	// till
+																	// dropmenyn
 
 	// private JTextField textFalt;
 	// private JLabel label;
@@ -28,15 +37,18 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 	public void run() { // la till run() för att ha metoderna här
 		fonsterRuta();
-		SortByName();
+		//sortByName();
+		sortVarde();
 	}
 
 	public void fonsterRuta() {
 		setLayout(new BorderLayout());
 
-		//Samlat deklarationen och tilläggningen till fönstret så det blir tydligare
+		// Samlat deklarationen och tilläggningen till fönstret så det blir
+		// tydligare
 		JPanel topPanel = new JPanel();
-		// Kan tänka this.add(föremål, position)  -- står det inget innan metoden så kan en tänka
+		// Kan tänka this.add(föremål, position) -- står det inget innan metoden
+		// så kan en tänka
 		// att det är this.metod
 		add(topPanel, BorderLayout.NORTH);
 
@@ -65,11 +77,11 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 		JButton visaKnapp = new JButton("Visa");
 		bottenPanel.add(visaKnapp);
-		//visaKnapp.addActionListener(this);
+		// visaKnapp.addActionListener(this);
 
 		JButton borsKnapp = new JButton("Börskrasch");
 		bottenPanel.add(borsKnapp);
-		//borsKnapp.addActionListener(this);
+		// borsKnapp.addActionListener(this);
 
 		hogerPanel.add(new JLabel("Sortering"));
 		hogerPanel.add(new JRadioButton("Namn", true));
@@ -83,7 +95,8 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 	}
 
-	public void SortByName() { //Jag la till varje sak i värdesaks arraylisten, måste vi ha en arraylis för varje objekt?
+	public void sortByName() { // Jag la till varje sak i värdesaks arraylisten,
+								// måste vi ha en arraylis för varje objekt?
 
 		for (Smycke s : smycken) {
 			saker.add(s);
@@ -97,12 +110,20 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		System.out.println(saker);
 	}
 
+	public void sortVarde() {
+		for (Vardesak v : saker){
+			v.sortVarde(v);
+			System.out.println(v);
+		}
+	}
+
 	public InpluppProgram() {
 		super("Sakregister");
 	}
 
-
-	public void actionPerformed(ActionEvent ave) { // Jag lade till en lyssnare bara för att se att programmet gav response.
+	public void actionPerformed(ActionEvent ave) { // Jag lade till en lyssnare
+													// bara för att se att
+													// programmet gav response.
 		if (box.getSelectedIndex() == 1) {
 			textRuta.setText("Du har valt smycke");
 			nyttSmycke();
@@ -134,15 +155,13 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		form.add(rad3);
 
 		while (true) {
-			int test = JOptionPane.showConfirmDialog(null, form, "Nytt smycke",
-					JOptionPane.OK_CANCEL_OPTION);
+			int test = JOptionPane.showConfirmDialog(null, form, "Nytt smycke", JOptionPane.OK_CANCEL_OPTION);
 			// kollar ifall användaren trycker på "Avbryt"
 			if (test == 2) {
 				break;
 			}
 			if (smyckesNamn.getText() == null || smyckesNamn.getText().equals("")) {
-				JOptionPane.showMessageDialog(null, "Fyll i namnet!",
-						"Fel", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Fyll i namnet!", "Fel", JOptionPane.ERROR_MESSAGE);
 				continue;
 			}
 			try {
@@ -158,9 +177,8 @@ public class InpluppProgram extends JFrame implements ActionListener {
 				}
 				System.out.println(s1);
 				break;
-			} catch(NumberFormatException e){
-				JOptionPane.showMessageDialog(null, "Fel format!",
-						"Fel", JOptionPane.ERROR_MESSAGE);
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Fel format!", "Fel", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 
@@ -185,7 +203,9 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		Apparat ap3 = new Apparat("Android", 2000.00, 7);
 		apparater.add(ap3);
 
-		Collections.sort(smycken);  // <-- Jag vill lägga denna kod på ett annat ställe, men det gick inte så bra. Koden fick förbli kvar.
+		Collections.sort(smycken); // <-- Jag vill lägga denna kod på ett annat
+									// ställe, men det gick inte så bra. Koden
+									// fick förbli kvar.
 		Collections.sort(aktier);
 		Collections.sort(apparater);
 
