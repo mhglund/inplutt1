@@ -12,9 +12,9 @@ import java.util.List;
 
 public class InpluppProgram extends JFrame implements ActionListener {
 	private ArrayList<Vardesak> saker = new ArrayList<>(); // Återaktiverade denna för att sortera objekten
-	private ArrayList<Smycke> smycken = new ArrayList<>();
-	private ArrayList<Aktie> aktier = new ArrayList<>();
-	private ArrayList<Apparat> apparater = new ArrayList<>();
+//	private ArrayList<Smycke> smycken = new ArrayList<>();
+//	private ArrayList<Aktie> aktier = new ArrayList<>();
+//	private ArrayList<Apparat> apparater = new ArrayList<>();
 
 	// Bör kanske deklareras inne i fonsterRuta?
 	private String[] vardesaker = { "Välj värdesak", "Smycke", "Aktie", "Apparat" };
@@ -91,25 +91,25 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 	}
 
-	public void sortByName() { // Jag la till varje sak i värdesaks arraylisten,
-								// måste vi ha en arraylis för varje objekt?
-
-		for (Smycke s : smycken) {
-			saker.add(s);
-		}
-		for (Aktie a : aktier) {
-			saker.add(a);
-		}
-		for (Apparat app : apparater) {
-			saker.add(app);
+	public void sortByName() { // Jag la till varje sak i värdesaks arraylisten måste vi ha en arraylis för varje objekt?
+					
+		
+		for (Vardesak sak : saker) {
+			sak.compareTo(sak);
 		}
 		System.out.println(saker);
+		
 	}
 
 	public void sortVarde() {
 		for (Vardesak v : saker){
 			v.sortVarde(v);
-			System.out.println(v);
+			
+			
+			if(v.getRealVarde() < 500.0){
+				System.out.println(v.getNamn());
+				System.out.println(v.getRealVarde());
+			}
 		}
 	}
 
@@ -117,9 +117,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		super("Sakregister");
 	}
 
-	public void actionPerformed(ActionEvent ave) { // Jag lade till en lyssnare
-													// bara för att se att
-													// programmet gav response.
+	public void actionPerformed(ActionEvent ave) { // Jag lade till en lyssnar bara för att se att programmet gav response.
 		if (box.getSelectedIndex() == 1) {
 			textRuta.setText("Du har valt smycke");
 			nyttSmycke();
@@ -166,10 +164,10 @@ public class InpluppProgram extends JFrame implements ActionListener {
 				Smycke s1;
 				if (guld.isSelected()) {
 					s1 = new Smycke(namn, antalStenar, true);
-					smycken.add(s1);
+					saker.add(s1);
 				} else {
 					s1 = new Smycke(namn, antalStenar, false);
-					smycken.add(s1);
+					saker.add(s1);
 				}
 				System.out.println(s1);
 				break;
@@ -182,28 +180,27 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 	private void setUp() {
 		Smycke s1 = new Smycke("halsband", 12, true);
-		smycken.add(s1);
+		saker.add(s1);
 		Smycke s2 = new Smycke("Armband", 3, true);
-		smycken.add(s2);
+		saker.add(s2);
 		Aktie ak1 = new Aktie("Ericsson", 4, 0.25);
-		aktier.add(ak1);
+		saker.add(ak1);
 		Apparat ap1 = new Apparat("teve", 3000.00, 5);
-		apparater.add(ap1);
+		saker.add(ap1);
 
-		System.out.println(smycken.get(0));
-		System.out.println(aktier.get(0));
-		System.out.println(apparater.get(0));
+//		System.out.println(saker.get(0));
+//		System.out.println(saker.get(1));
+//		System.out.println(saker.get(2));
 
 		Apparat ap2 = new Apparat("Ipad", 3000.00, 1);
-		apparater.add(ap2);
+		saker.add(ap2);
 		Apparat ap3 = new Apparat("Android", 2000.00, 7);
-		apparater.add(ap3);
+		saker.add(ap3);
 
-		Collections.sort(smycken); // <-- Jag vill lägga denna kod på ett annat
+		Collections.sort(saker); // <-- Jag vill lägga denna kod på ett annat
 									// ställe, men det gick inte så bra. Koden
 									// fick förbli kvar.
-		Collections.sort(aktier);
-		Collections.sort(apparater);
+		
 
 	}
 
