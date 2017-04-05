@@ -117,11 +117,8 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		super("Sakregister");
 	}
 
-<<<<<<< HEAD
-	public void actionPerformed(ActionEvent ave) { // Jag lade till en lyssnar bara för att se att programmet gav response.
-=======
+
 	public void actionPerformed(ActionEvent ave) {
->>>>>>> 6d0d6b4dc784d95e9aa941ebb164187a554531cf
 		if (box.getSelectedIndex() == 1) {
 			textRuta.setText("Du har valt smycke");
 			nyttSmycke();
@@ -147,25 +144,13 @@ public class InpluppProgram extends JFrame implements ActionListener {
 				continue;
 			}
 			try {
-<<<<<<< HEAD
-				String namn = smyckesNamn.getText();
-				int antalStenar = Integer.parseInt(stenar.getText());
-				Smycke s1;
-				if (guld.isSelected()) {
-					s1 = new Smycke(namn, antalStenar, true);
-					saker.add(s1);
-				} else {
-					s1 = new Smycke(namn, antalStenar, false);
-					saker.add(s1);
-				}
-=======
+
 				//stilfråga -- hämta ut och lagra i variabler eller hämta direkt sen
 				String namn = form.getNamn();
 				int stenar = form.getStenar();
 				boolean guld = form.getGuld();
 				Smycke s1 = new Smycke(namn, stenar, guld);
 				saker.add(s1);
->>>>>>> 6d0d6b4dc784d95e9aa941ebb164187a554531cf
 				System.out.println(s1);
 				break;
 			} catch (NumberFormatException e) {
