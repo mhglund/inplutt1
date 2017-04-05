@@ -11,23 +11,14 @@ import java.util.List;
  */
 
 public class InpluppProgram extends JFrame implements ActionListener {
-	private ArrayList<Vardesak> saker = new ArrayList<>(); // Återaktiverade
-															// denna för att
-															// sortera objekten
+	private ArrayList<Vardesak> saker = new ArrayList<>(); // Återaktiverade denna för att sortera objekten
 	private ArrayList<Smycke> smycken = new ArrayList<>();
 	private ArrayList<Aktie> aktier = new ArrayList<>();
 	private ArrayList<Apparat> apparater = new ArrayList<>();
 
 	// Bör kanske deklareras inne i fonsterRuta?
-	private String[] vardesaker = { "Välj värdesak", "Smycke", "Aktie", "Apparat" }; // För
-																						// att
-																						// få
-																						// kortare
-																						// kod
-	private JComboBox<String> box = new JComboBox<>(vardesaker); // En lista med
-																	// saker
-																	// till
-																	// dropmenyn
+	private String[] vardesaker = { "Välj värdesak", "Smycke", "Aktie", "Apparat" };
+	private JComboBox<String> box = new JComboBox<>(vardesaker); 
 
 	// private JTextField textFalt;
 	// private JLabel label;
@@ -84,8 +75,13 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		// borsKnapp.addActionListener(this);
 
 		hogerPanel.add(new JLabel("Sortering"));
-		hogerPanel.add(new JRadioButton("Namn", true));
-		hogerPanel.add(new JRadioButton("Värde", false));
+		JRadioButton namnSort = new JRadioButton("Namn", true);
+		JRadioButton vardeSort = new JRadioButton("Värde", false);
+		hogerPanel.add(namnSort);
+		hogerPanel.add(vardeSort);
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(namnSort);
+		bg.add(vardeSort);
 
 		box.addActionListener(this);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
