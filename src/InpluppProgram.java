@@ -10,12 +10,7 @@ import java.util.*;
  */
 
 public class InpluppProgram extends JFrame implements ActionListener {
-	private ArrayList<Vardesak> saker = new ArrayList<>(); // Återaktiverade
-															// denna för att
-															// sortera objekten
-	// private ArrayList<Smycke> smycken = new ArrayList<>();
-	// private ArrayList<Aktie> aktier = new ArrayList<>();
-	// private ArrayList<Apparat> apparater = new ArrayList<>();
+	private ArrayList<Vardesak> saker = new ArrayList<>();
 
 	// Bör kanske deklareras inne i fonsterRuta?
 	private String[] vardesaker = { "Välj värdesak", "Smycke", "Aktie", "Apparat" };
@@ -115,6 +110,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		super("Sakregister");
 	}
 
+	//Ska flyttalen skrivas ut med punkt (.) eller kommatecken (,)?
 	class VisaLyss implements ActionListener {
 		public void actionPerformed(ActionEvent ave) {
 			textRuta.setText("");
@@ -130,35 +126,57 @@ public class InpluppProgram extends JFrame implements ActionListener {
 			nyttSmycke();
 		} else if (box.getSelectedIndex() == 2) {
 			textRuta.setText("Du har valt aktie");
+			nyAktie();
 		} else if (box.getSelectedIndex() == 3) {
 			textRuta.setText("Du har valt apparat");
 		}
 	}
 
 	public void nyttSmycke() {
-		NyttSmycke form = new NyttSmycke();
-
+		NyttSmycke smyckesForm = new NyttSmycke();
 		while (true) {
-			int test = JOptionPane.showConfirmDialog(null, form, "Nytt smycke", JOptionPane.OK_CANCEL_OPTION);
-			System.out.println(test);
+			int test = JOptionPane.showConfirmDialog(null, smyckesForm, "Nytt smycke", JOptionPane.OK_CANCEL_OPTION);
+			//System.out.println(test);
 			// kollar ifall användaren trycker på "Avbryt" eller kryssrutan
 			if (test == 2 || test == -1) {
 				break;
 			}
-			if (form.getNamn() == null || form.getNamn().equals("")) {
+			if (smyckesForm.getNamn() == null || smyckesForm.getNamn().equals("")) {
 				JOptionPane.showMessageDialog(null, "Fyll i namnet!", "Fel", JOptionPane.ERROR_MESSAGE);
 				continue;
 			}
 			try {
-
-				// stilfråga -- hämta ut och lagra i variabler eller hämta
-				// direkt sen
-				String namn = form.getNamn();
-				int stenar = form.getStenar();
-				boolean guld = form.getGuld();
+				// stilfråga -- hämta ut och lagra i variabler eller hämta direkt sen
+				String namn = smyckesForm.getNamn();
+				int stenar = smyckesForm.getStenar();
+				boolean guld = smyckesForm.getGuld();
 				Smycke s1 = new Smycke(namn, stenar, guld);
 				saker.add(s1);
-				System.out.println(s1);
+				//System.out.println(s1);
+				break;
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Fel format!", "Fel", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+
+	public void nyAktie() {
+		NyAktie aktieForm = new NyAktie();
+		while (true) {
+			int test = JOptionPane.showConfirmDialog(null, aktieForm, "Ny aktie", JOptionPane.OK_CANCEL_OPTION);
+			if (test == 2 || test == -1) {
+				break;
+			}
+			if (aktieForm.getNamn() == null || aktieForm.getNamn().equals("")) {
+				JOptionPane.showMessageDialog(null, "Fyll i namnet", "Fel", JOptionPane.ERROR_MESSAGE);
+				continue;
+			}
+			try {
+				String namn = aktieForm.getNamn();
+				int antal = aktieForm.getAntal();
+				Double kurs = aktieForm.getKurs();
+				Aktie a1 = new Aktie(namn, antal, kurs);
+				saker.add(a1);
 				break;
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Fel format!", "Fel", JOptionPane.ERROR_MESSAGE);

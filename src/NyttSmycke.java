@@ -8,7 +8,6 @@ public class NyttSmycke extends JPanel{
 	private JTextField stenFalt = new JTextField(5);
 	private JCheckBox guldBox = new JCheckBox("Guld");
 
-
 	public NyttSmycke() {
 		//ska vara en vertikal box-layout
 		setLayout((new BoxLayout(this, BoxLayout.Y_AXIS)));
@@ -22,7 +21,6 @@ public class NyttSmycke extends JPanel{
 		rad2.add(stenFalt);
 		//rad 3 består bara av checkboxen
 		add(guldBox);
-
 	}
 
 	public String getNamn() {
