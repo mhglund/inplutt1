@@ -31,12 +31,9 @@ public class InpluppProgram extends JFrame implements ActionListener {
 	public void fonsterRuta() {
 		setLayout(new BorderLayout());
 
-		// Samlat deklarationen och tilläggningen till fönstret så det blir
-		// tydligare
+		// Samlat deklarationen och tilläggningen till fönstret så det blir tydligare
 		JPanel topPanel = new JPanel();
-		// Kan tänka this.add(föremål, position) -- står det inget innan metoden
-		// så kan en tänka
-		// att det är this.metod
+		// Kan tänka this.add(föremål, position) -- står det inget innan metoden så kan en tänka att det är this.metod
 		add(topPanel, BorderLayout.NORTH);
 
 		JPanel bottenPanel = new JPanel();
@@ -87,8 +84,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 	}
 
-	public ArrayList<Vardesak> sortByName() { // Jag la till varje sak i värdesaks arraylisten
-								// måste vi ha en arraylis för varje objekt?
+	public ArrayList<Vardesak> sortByName() { // Jag la till varje sak i värdesaks arraylisten måste vi ha en arraylis för varje objekt?
 		ArrayList<Vardesak> sorteradLista = new ArrayList<>();
 
 		for (Vardesak sak : saker) {
@@ -203,9 +199,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		Apparat ap3 = new Apparat("Android", 2000.00, 7);
 		saker.add(ap3);
 
-		//Collections.sort(saker); // <-- Jag vill lägga denna kod på ett annat
-									// ställe, men det gick inte så bra. Koden
-									// fick förbli kvar.
+		//Collections.sort(saker); // <-- Jag vill lägga denna kod på ett annat ställe, men det gick inte så bra. Koden fick förbli kvar.
 
 	}
 
