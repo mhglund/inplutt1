@@ -20,12 +20,10 @@ public class InpluppProgram extends JFrame implements ActionListener {
 	// private JLabel label;
 	private JTextArea textRuta = new JTextArea("", 18, 17);
 	private JScrollPane skrollPanel = new JScrollPane(textRuta, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-			JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 	public void run() { // la till run() för att ha metoderna här
 		fonsterRuta();
-		// sortByName();
-		sortVarde();
 	}
 
 	public void fonsterRuta() {
@@ -69,7 +67,9 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 		hogerPanel.add(new JLabel("Sortering"));
 		JRadioButton namnSort = new JRadioButton("Namn", true);
+		namnSort.addActionListener(new visaSortering());
 		JRadioButton vardeSort = new JRadioButton("Värde", false);
+		vardeSort.addActionListener(new vardeSortering());
 		hogerPanel.add(namnSort);
 		hogerPanel.add(vardeSort);
 		ButtonGroup bg = new ButtonGroup();
@@ -84,22 +84,34 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 	}
 
-	public ArrayList<Vardesak> sortByName() { // Jag la till varje sak i värdesaks arraylisten måste vi ha en arraylis för varje objekt?
-		ArrayList<Vardesak> sorteradLista = new ArrayList<>();
+	public void sortByName() { // Jag la till varje sak i värdesaks arraylisten måste vi ha en arraylis för varje objekt?
 
-		for (Vardesak sak : saker) {
-			sak.compareTo(sak);
+		System.out.println("****Här börjar namn sortering**** \n ");
+		Collections.sort(saker, new Comparator<Vardesak>() {
+
+			public int compare(Vardesak result1, Vardesak result2) {
+				return result1.getNamn().compareTo(result2.getNamn());
+
+			}
+		});
+		for (Vardesak resultInstance : saker) {
+			textRuta.append(resultInstance + "\n");
 		}
-		System.out.println(saker);
-		return sorteradLista;
 
 	}
 
 	public void sortVarde() {
-		for (Vardesak v : saker) {
-			v.compareTo(v);
+		System.out.println("\n ****Här börjar värde sortering**** \n");
+		Collections.sort(saker, new Comparator<Vardesak>() {
+
+			public int compare(Vardesak result1, Vardesak result2) {
+				return result1.getRealVarde().compareTo(result2.getRealVarde());
+
+			}
+		});
+		for (Vardesak resultInstance : saker) {
+			textRuta.append(resultInstance + "\n");
 		}
-		System.out.println(saker);
 	}
 
 	public InpluppProgram() {
@@ -113,6 +125,22 @@ public class InpluppProgram extends JFrame implements ActionListener {
 			for (Vardesak v : saker) {
 				textRuta.append(v.toString() + "\n");
 			}
+		}
+	}
+
+	class visaSortering implements ActionListener {
+		public void actionPerformed(ActionEvent ave) {
+			textRuta.setText("");
+			sortByName();
+
+		}
+	}
+
+	class vardeSortering implements ActionListener {
+		public void actionPerformed(ActionEvent ave) {
+			textRuta.setText("");
+			sortVarde();
+
 		}
 	}
 
@@ -181,7 +209,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 	}
 
 	private void setUp() {
-		Smycke s1 = new Smycke("halsband", 12, true);
+		Smycke s1 = new Smycke("halsband", 1, true);
 		saker.add(s1);
 		Smycke s2 = new Smycke("Armband", 3, true);
 		saker.add(s2);
@@ -190,16 +218,10 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		Apparat ap1 = new Apparat("teve", 3000.00, 5);
 		saker.add(ap1);
 
-		// System.out.println(saker.get(0));
-		// System.out.println(saker.get(1));
-		// System.out.println(saker.get(2));
-
-		Apparat ap2 = new Apparat("Ipad", 3000.00, 1);
+		Apparat ap2 = new Apparat("Ipad", 6000.00, 1);
 		saker.add(ap2);
 		Apparat ap3 = new Apparat("Android", 2000.00, 7);
 		saker.add(ap3);
-
-		//Collections.sort(saker); // <-- Jag vill lägga denna kod på ett annat ställe, men det gick inte så bra. Koden fick förbli kvar.
 
 	}
 
