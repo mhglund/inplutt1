@@ -18,7 +18,6 @@ public class NyAktie extends JPanel {
 		add(rad2);
 		rad2.add(new JLabel("Antal:"));
 		rad2.add(antalFalt);
-		//rad 3 består bara av checkboxen
 		JPanel rad3 = new JPanel();
 		add(rad3);
 		rad3.add(new JLabel("Kurs:"));

@@ -66,7 +66,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		// borsKnapp.addActionListener(this);
 
 		hogerPanel.add(new JLabel("Sortering"));
-		JRadioButton namnSort = new JRadioButton("Namn", true);
+		JRadioButton namnSort = new JRadioButton("Namn", false);
 		namnSort.addActionListener(new visaSortering());
 		JRadioButton vardeSort = new JRadioButton("Värde", false);
 		vardeSort.addActionListener(new vardeSortering());
@@ -78,7 +78,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 		box.addActionListener(this);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(500, 400);
+		setSize(700, 400);
 		setLocation(300, 200);
 		setVisible(true);
 
@@ -153,20 +153,27 @@ public class InpluppProgram extends JFrame implements ActionListener {
 			nyAktie();
 		} else if (box.getSelectedIndex() == 3) {
 			textRuta.setText("Du har valt apparat");
+			nyApparat();
 		}
 	}
+
+	//Finns ingen felhantering för ifall namnen på värdesakerna är siffror, men det står inte heller
+	// som krav så jag tror vi skippar det? Kommer bli en rätt krånlig lösning annars, då prylar ju
+	// kan ha en siffra i sig. Typ Chanel no5, eller nåt.
 
 	public void nyttSmycke() {
 		NyttSmycke smyckesForm = new NyttSmycke();
 		while (true) {
 			int test = JOptionPane.showConfirmDialog(null, smyckesForm, "Nytt smycke", JOptionPane.OK_CANCEL_OPTION);
-			//System.out.println(test);
 			// kollar ifall användaren trycker på "Avbryt" eller kryssrutan
 			if (test == 2 || test == -1) {
 				break;
 			}
 			if (smyckesForm.getNamn() == null || smyckesForm.getNamn().equals("")) {
 				JOptionPane.showMessageDialog(null, "Fyll i namnet!", "Fel", JOptionPane.ERROR_MESSAGE);
+				continue;
+			} else if (smyckesForm.getStenar() < 0) {
+				JOptionPane.showMessageDialog(null, "Antalet stenar kan ej vara negativt", "Fel", JOptionPane.ERROR_MESSAGE);
 				continue;
 			}
 			try {
@@ -176,7 +183,6 @@ public class InpluppProgram extends JFrame implements ActionListener {
 				boolean guld = smyckesForm.getGuld();
 				Smycke s1 = new Smycke(namn, stenar, guld);
 				saker.add(s1);
-				//System.out.println(s1);
 				break;
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Fel format!", "Fel", JOptionPane.ERROR_MESSAGE);
@@ -194,13 +200,44 @@ public class InpluppProgram extends JFrame implements ActionListener {
 			if (aktieForm.getNamn() == null || aktieForm.getNamn().equals("")) {
 				JOptionPane.showMessageDialog(null, "Fyll i namnet", "Fel", JOptionPane.ERROR_MESSAGE);
 				continue;
+			} else if (aktieForm.getAntal() < 1) {
+				JOptionPane.showMessageDialog(null, "Antalet måste vara mer än 1", "Fel", JOptionPane.ERROR_MESSAGE);
+				continue;
 			}
 			try {
 				String namn = aktieForm.getNamn();
 				int antal = aktieForm.getAntal();
 				Double kurs = aktieForm.getKurs();
-				Aktie a1 = new Aktie(namn, antal, kurs);
-				saker.add(a1);
+				Aktie ak1 = new Aktie(namn, antal, kurs);
+				saker.add(ak1);
+				break;
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Fel format!", "Fel", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+
+
+	public void nyApparat() {
+		NyApparat apparatForm = new NyApparat();
+		while(true) {
+			int test = JOptionPane.showConfirmDialog(null, apparatForm, "Ny apparat", JOptionPane.OK_CANCEL_OPTION);
+			if (test == 2 || test == -1) {
+				break;
+			}
+			if (apparatForm.getNamn() == null || apparatForm.getNamn().equals("")) {
+				JOptionPane.showMessageDialog(null, "Fyll i namnet", "Fel", JOptionPane.ERROR_MESSAGE);
+				continue;
+			} else if (apparatForm.getSlitage() > 10 || apparatForm.getSlitage() < 1) {
+				JOptionPane.showMessageDialog(null, "Slitagevärdet måste vara mellan 1--10", "Fel", JOptionPane.ERROR_MESSAGE);
+				continue;
+			}
+			try {
+				String namn = apparatForm.getNamn();
+				Double pris = apparatForm.getPris();
+				int slitage = apparatForm.getSlitage();
+				Apparat ap1 = new Apparat(namn, pris, slitage);
+				saker.add(ap1);
 				break;
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Fel format!", "Fel", JOptionPane.ERROR_MESSAGE);
@@ -209,15 +246,14 @@ public class InpluppProgram extends JFrame implements ActionListener {
 	}
 
 	private void setUp() {
-		Smycke s1 = new Smycke("halsband", 1, true);
+		Smycke s1 = new Smycke("Halsband", 1, true);
 		saker.add(s1);
 		Smycke s2 = new Smycke("Armband", 3, true);
 		saker.add(s2);
 		Aktie ak1 = new Aktie("Ericsson", 4, 0.25);
 		saker.add(ak1);
-		Apparat ap1 = new Apparat("teve", 3000.00, 5);
+		Apparat ap1 = new Apparat("Teve", 3000.00, 5);
 		saker.add(ap1);
-
 		Apparat ap2 = new Apparat("Ipad", 6000.00, 1);
 		saker.add(ap2);
 		Apparat ap3 = new Apparat("Android", 2000.00, 7);
