@@ -11,6 +11,7 @@ import java.util.*;
 
 public class InpluppProgram extends JFrame implements ActionListener {
 	private ArrayList<Vardesak> saker = new ArrayList<>();
+	private ArrayList<Aktie> aktier = new ArrayList<>();
 
 	// Bör kanske deklareras inne i fonsterRuta?
 	private String[] vardesaker = { "Välj värdesak", "Smycke", "Aktie", "Apparat" };
@@ -63,7 +64,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 		JButton borsKnapp = new JButton("Börskrasch");
 		bottenPanel.add(borsKnapp);
-		// borsKnapp.addActionListener(this);
+		borsKnapp.addActionListener(new Borskrasch());
 
 		hogerPanel.add(new JLabel("Sortering"));
 		JRadioButton namnSort = new JRadioButton("Namn", false);
@@ -84,29 +85,26 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 	}
 
-	public void sortByName() { // Jag la till varje sak i värdesaks arraylisten måste vi ha en arraylis för varje objekt?
+	public void sortByName() {
 
 		System.out.println("****Här börjar namn sortering**** \n ");
 		Collections.sort(saker, new Comparator<Vardesak>() {
 
 			public int compare(Vardesak result1, Vardesak result2) {
 				return result1.getNamn().compareTo(result2.getNamn());
-
 			}
 		});
 		for (Vardesak resultInstance : saker) {
 			textRuta.append(resultInstance + "\n");
 		}
-
 	}
 
 	public void sortVarde() {
 		System.out.println("\n ****Här börjar värde sortering**** \n");
-		Collections.sort(saker, new Comparator<Vardesak>() {
+		Collections.sort(saker, new Comparator<Vardesak>() {    //min editor föreslår lambda här istället för Comparator, ska vi lära oss det?
 
 			public int compare(Vardesak result1, Vardesak result2) {
 				return result1.getRealVarde().compareTo(result2.getRealVarde());
-
 			}
 		});
 		for (Vardesak resultInstance : saker) {
@@ -124,6 +122,19 @@ public class InpluppProgram extends JFrame implements ActionListener {
 			textRuta.setText("");
 			for (Vardesak v : saker) {
 				textRuta.append(v.toString() + "\n");
+			}
+		}
+	}
+
+	class Borskrasch implements ActionListener {
+		public void actionPerformed(ActionEvent ave) {
+			for (Aktie ak : aktier) {
+				ak.setKurs(0.0);
+			}
+			//Skriver ut alla aktier för att tydliggöra nollställningen
+			textRuta.setText("");
+			for (Aktie a : aktier) {
+				textRuta.append(a.toString() + "\n");
 			}
 		}
 	}
@@ -210,6 +221,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 				Double kurs = aktieForm.getKurs();
 				Aktie ak1 = new Aktie(namn, antal, kurs);
 				saker.add(ak1);
+				aktier.add(ak1);
 				break;
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Fel format!", "Fel", JOptionPane.ERROR_MESSAGE);
@@ -252,6 +264,10 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		saker.add(s2);
 		Aktie ak1 = new Aktie("Ericsson", 4, 0.25);
 		saker.add(ak1);
+		aktier.add(ak1);
+		Aktie ak2 = new Aktie("Apple", 8, 5.5);
+		saker.add(ak2);
+		aktier.add(ak2);
 		Apparat ap1 = new Apparat("Teve", 3000.00, 5);
 		saker.add(ap1);
 		Apparat ap2 = new Apparat("Ipad", 6000.00, 1);

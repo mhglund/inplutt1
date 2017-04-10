@@ -23,6 +23,10 @@ public class Aktie extends Vardesak {
 		return antal;
 	}
 
+	public void setKurs(double nyKurs) {
+		this.kurs = nyKurs;
+	}
+
 	public String toString() {
 		return "Namn: " + this.getNamn() + " | Antal: " + this.getAntal() + " | Kurs: " + this.getKurs() + " | Värde: "
 			+ this.getRealVarde();
