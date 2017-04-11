@@ -13,26 +13,25 @@ public class InpluppProgram extends JFrame implements ActionListener {
 	private ArrayList<Vardesak> saker = new ArrayList<>();
 	private ArrayList<Aktie> aktier = new ArrayList<>();
 
-	// Bör kanske deklareras inne i fonsterRuta?
 	private String[] vardesaker = { "Välj värdesak", "Smycke", "Aktie", "Apparat" };
 	private JComboBox<String> box = new JComboBox<>(vardesaker);
 
-	// private JTextField textFalt;
-	// private JLabel label;
+	private JRadioButton namnSort = new JRadioButton("Namn", false);
+	private JRadioButton vardeSort = new JRadioButton("Värde", false);
+
 	private JTextArea textRuta = new JTextArea("", 18, 17);
 	private JScrollPane skrollPanel = new JScrollPane(textRuta, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 		JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-	public void run() { // la till run() för att ha metoderna här
+	private void run() {
+		setUp();
 		fonsterRuta();
 	}
 
-	public void fonsterRuta() {
+	private void fonsterRuta() {
 		setLayout(new BorderLayout());
 
-		// Samlat deklarationen och tilläggningen till fönstret så det blir tydligare
 		JPanel topPanel = new JPanel();
-		// Kan tänka this.add(föremål, position) -- står det inget innan metoden så kan en tänka att det är this.metod
 		add(topPanel, BorderLayout.NORTH);
 
 		JPanel bottenPanel = new JPanel();
@@ -48,14 +47,12 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		hogerPanel.setBorder(new EmptyBorder(5, 5, 5, 20));
 		hogerPanel.setLayout(new BoxLayout(hogerPanel, BoxLayout.Y_AXIS));
 
-		// behållare.add(föremål)
 		topPanel.add(new JLabel("Värdesaker"));
 
 		mittPanel.add(skrollPanel, BorderLayout.CENTER);
 
 		bottenPanel.add(new JLabel("Nytt: "));
 
-		// droppmenyn läggs till
 		bottenPanel.add(box);
 
 		JButton visaKnapp = new JButton("Visa");
@@ -67,9 +64,9 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		borsKnapp.addActionListener(new Borskrasch());
 
 		hogerPanel.add(new JLabel("Sortering"));
-		JRadioButton namnSort = new JRadioButton("Namn", false);
+
 		namnSort.addActionListener(new visaSortering());
-		JRadioButton vardeSort = new JRadioButton("Värde", false);
+
 		vardeSort.addActionListener(new vardeSortering());
 		hogerPanel.add(namnSort);
 		hogerPanel.add(vardeSort);
@@ -82,14 +79,11 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		setSize(700, 400);
 		setLocation(300, 200);
 		setVisible(true);
-
 	}
 
-	public void sortByName() {
-
+	private void sortByName() {
 		System.out.println("****Här börjar namn sortering**** \n ");
 		Collections.sort(saker, new Comparator<Vardesak>() {
-
 			public int compare(Vardesak result1, Vardesak result2) {
 				return result1.getNamn().compareTo(result2.getNamn());
 			}
@@ -99,10 +93,9 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		}
 	}
 
-	public void sortVarde() {
+	private void sortVarde() {
 		System.out.println("\n ****Här börjar värde sortering**** \n");
-		Collections.sort(saker, new Comparator<Vardesak>() {    //min editor föreslår lambda här istället för Comparator, ska vi lära oss det?
-
+		Collections.sort(saker, new Comparator<Vardesak>() {
 			public int compare(Vardesak result1, Vardesak result2) {
 				return result1.getRealVarde().compareTo(result2.getRealVarde());
 			}
@@ -112,11 +105,10 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		}
 	}
 
-	public InpluppProgram() {
+	private InpluppProgram() {
 		super("Sakregister");
 	}
 
-	//Ska flyttalen skrivas ut med punkt (.) eller kommatecken (,)?
 	class VisaLyss implements ActionListener {
 		public void actionPerformed(ActionEvent ave) {
 			textRuta.setText("");
@@ -143,7 +135,6 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		public void actionPerformed(ActionEvent ave) {
 			textRuta.setText("");
 			sortByName();
-
 		}
 	}
 
@@ -151,49 +142,51 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		public void actionPerformed(ActionEvent ave) {
 			textRuta.setText("");
 			sortVarde();
-
 		}
 	}
 
 	public void actionPerformed(ActionEvent ave) {
 		if (box.getSelectedIndex() == 1) {
-			textRuta.setText("Du har valt smycke");
 			nyttSmycke();
 		} else if (box.getSelectedIndex() == 2) {
-			textRuta.setText("Du har valt aktie");
 			nyAktie();
 		} else if (box.getSelectedIndex() == 3) {
-			textRuta.setText("Du har valt apparat");
 			nyApparat();
 		}
 	}
 
-	//Finns ingen felhantering för ifall namnen på värdesakerna är siffror, men det står inte heller
-	// som krav så jag tror vi skippar det? Kommer bli en rätt krånlig lösning annars, då prylar ju
-	// kan ha en siffra i sig. Typ Chanel no5, eller nåt.
+	private void sorteraNytt() {
+		if (namnSort.isSelected()) {
+			sortByName();
+		} else if (vardeSort.isSelected()) {
+			sortVarde();
+		}
+	}
 
-	public void nyttSmycke() {
+	private void nyttSmycke() {
 		NyttSmycke smyckesForm = new NyttSmycke();
 		while (true) {
 			int test = JOptionPane.showConfirmDialog(null, smyckesForm, "Nytt smycke", JOptionPane.OK_CANCEL_OPTION);
-			// kollar ifall användaren trycker på "Avbryt" eller kryssrutan
 			if (test == 2 || test == -1) {
 				break;
 			}
 			if (smyckesForm.getNamn() == null || smyckesForm.getNamn().equals("")) {
 				JOptionPane.showMessageDialog(null, "Fyll i namnet!", "Fel", JOptionPane.ERROR_MESSAGE);
 				continue;
+			} else if (smyckesForm.getStenFalt() == null || smyckesForm.getStenFalt().equals("")) {
+				JOptionPane.showMessageDialog(null, "Fyll i antalet stenar!", "Fel", JOptionPane.ERROR_MESSAGE);
+				continue;
 			} else if (smyckesForm.getStenar() < 0) {
 				JOptionPane.showMessageDialog(null, "Antalet stenar kan ej vara negativt", "Fel", JOptionPane.ERROR_MESSAGE);
 				continue;
 			}
 			try {
-				// stilfråga -- hämta ut och lagra i variabler eller hämta direkt sen
 				String namn = smyckesForm.getNamn();
 				int stenar = smyckesForm.getStenar();
 				boolean guld = smyckesForm.getGuld();
 				Smycke s1 = new Smycke(namn, stenar, guld);
 				saker.add(s1);
+				sorteraNytt();
 				break;
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Fel format!", "Fel", JOptionPane.ERROR_MESSAGE);
@@ -201,7 +194,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		}
 	}
 
-	public void nyAktie() {
+	private void nyAktie() {
 		NyAktie aktieForm = new NyAktie();
 		while (true) {
 			int test = JOptionPane.showConfirmDialog(null, aktieForm, "Ny aktie", JOptionPane.OK_CANCEL_OPTION);
@@ -214,6 +207,12 @@ public class InpluppProgram extends JFrame implements ActionListener {
 			} else if (aktieForm.getAntal() < 1) {
 				JOptionPane.showMessageDialog(null, "Antalet måste vara mer än 1", "Fel", JOptionPane.ERROR_MESSAGE);
 				continue;
+			} else if (aktieForm.getAntalFalt() == null || aktieForm.getAntalFalt().equals("")) {
+				JOptionPane.showMessageDialog(null, "Fyll i antalet", "Fel", JOptionPane.ERROR_MESSAGE);
+				continue;
+			} else if (aktieForm.getKursFalt() == null || aktieForm.getKursFalt().equals("")) {
+				JOptionPane.showMessageDialog(null, "Fyll i kursen", "Fel", JOptionPane.ERROR_MESSAGE);
+				continue;
 			}
 			try {
 				String namn = aktieForm.getNamn();
@@ -222,6 +221,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 				Aktie ak1 = new Aktie(namn, antal, kurs);
 				saker.add(ak1);
 				aktier.add(ak1);
+				sorteraNytt();
 				break;
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Fel format!", "Fel", JOptionPane.ERROR_MESSAGE);
@@ -229,8 +229,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		}
 	}
 
-
-	public void nyApparat() {
+	private void nyApparat() {
 		NyApparat apparatForm = new NyApparat();
 		while(true) {
 			int test = JOptionPane.showConfirmDialog(null, apparatForm, "Ny apparat", JOptionPane.OK_CANCEL_OPTION);
@@ -243,6 +242,11 @@ public class InpluppProgram extends JFrame implements ActionListener {
 			} else if (apparatForm.getSlitage() > 10 || apparatForm.getSlitage() < 1) {
 				JOptionPane.showMessageDialog(null, "Slitagevärdet måste vara mellan 1--10", "Fel", JOptionPane.ERROR_MESSAGE);
 				continue;
+			} else if (apparatForm.getPrisFalt() == null || apparatForm.getPrisFalt().equals("")) {
+				JOptionPane.showMessageDialog(null, "Fyll i priset", "Fel", JOptionPane.ERROR_MESSAGE);
+			} else if (apparatForm.getSlitageFalt() == null || apparatForm.getSlitageFalt().equals("")) {
+				JOptionPane.showMessageDialog(null, "Fyll i slitage", "Fel", JOptionPane.ERROR_MESSAGE);
+				continue;
 			}
 			try {
 				String namn = apparatForm.getNamn();
@@ -250,6 +254,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 				int slitage = apparatForm.getSlitage();
 				Apparat ap1 = new Apparat(namn, pris, slitage);
 				saker.add(ap1);
+				sorteraNytt();
 				break;
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Fel format!", "Fel", JOptionPane.ERROR_MESSAGE);
@@ -274,14 +279,11 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		saker.add(ap2);
 		Apparat ap3 = new Apparat("Android", 2000.00, 7);
 		saker.add(ap3);
-
 	}
 
 	public static void main(String args[]) {
 		InpluppProgram program = new InpluppProgram();
-		program.setUp();
 		program.run();
-
 	}
 
 	static {
@@ -291,6 +293,5 @@ public class InpluppProgram extends JFrame implements ActionListener {
 		for (String s : comps) {
 			UIManager.put(s + ".font", f);
 		}
-
 	}
 }

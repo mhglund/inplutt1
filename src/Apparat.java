@@ -12,7 +12,6 @@ public class Apparat extends Vardesak {
 	}
 
 	public Double getVarde() {
-		// 10.0 för att det ska bli Double
 		return (inkopspris * (slitage/10.0));
 	}
 

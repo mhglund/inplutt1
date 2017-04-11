@@ -8,7 +8,6 @@ public class Smycke extends Vardesak {
 	private boolean material;   // true=guld, false=silver
 	private Double tempVarde;
 
-
 	public Smycke(String namn, int antalStenar, boolean material) {
 		super(namn);
 		this.antalStenar = antalStenar;
@@ -38,12 +37,10 @@ public class Smycke extends Vardesak {
 			tempVarde = 700.00;
 		}
 		return (tempVarde + (500 * antalStenar));
-
 	}
 
 	public String toString() {
 		return "Namn: " + this.getNamn() + " | Material: " + this.getMaterialNamn()
 				+ " | Värde: " + this.getRealVarde();
 	}
-
 }

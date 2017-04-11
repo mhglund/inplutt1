@@ -9,7 +9,6 @@ public class NyttSmycke extends JPanel{
 	private JCheckBox guldBox = new JCheckBox("Guld");
 
 	public NyttSmycke() {
-		//ska vara en vertikal box-layout
 		setLayout((new BoxLayout(this, BoxLayout.Y_AXIS)));
 		JPanel rad1 = new JPanel();
 		add(rad1);
@@ -19,7 +18,6 @@ public class NyttSmycke extends JPanel{
 		add(rad2);
 		rad2.add(new JLabel("Antal stenar:"));
 		rad2.add(stenFalt);
-		//rad 3 består bara av checkboxen
 		add(guldBox);
 	}
 
@@ -27,8 +25,11 @@ public class NyttSmycke extends JPanel{
 		return namnFalt.getText();
 	}
 
+	public String getStenFalt() {
+		return stenFalt.getText();
+	}
+
 	public int getStenar() {
-		//ifall användaren fyller i bokstäver istället för siffor så kommer den kasta ett numberException
 		return Integer.parseInt(stenFalt.getText());
 	}
 

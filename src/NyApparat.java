@@ -32,7 +32,15 @@ public class NyApparat extends JPanel {
 		return Double.parseDouble(prisFalt.getText());
 	}
 
+	public String getPrisFalt() {
+		return prisFalt.getText();
+	}
+
 	public int getSlitage() {
 		return Integer.parseInt(slitageFalt.getText());
+	}
+
+	public String getSlitageFalt() {
+		return slitageFalt.getText();
 	}
 }

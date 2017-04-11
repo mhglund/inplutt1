@@ -9,7 +9,6 @@ abstract public class Vardesak implements Comparable<Vardesak> {
 
 	public Vardesak(String namn) {
 		this.namn = namn;
-		//this.varde = varde * 1.25;
 	}
 
 	public String getNamn() {
@@ -26,5 +25,4 @@ abstract public class Vardesak implements Comparable<Vardesak> {
 		varde = getVarde() * 1.25;
 		return varde;
 	}
-
 }

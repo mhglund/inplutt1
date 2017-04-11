@@ -32,7 +32,15 @@ public class NyAktie extends JPanel {
 		return Integer.parseInt(antalFalt.getText());
 	}
 
+	public String getAntalFalt() {
+		return antalFalt.getText();
+	}
+
 	public Double getKurs() {
 		return Double.parseDouble(kursFalt.getText());
+	}
+
+	public String getKursFalt() {
+		return kursFalt.getText();
 	}
 }
