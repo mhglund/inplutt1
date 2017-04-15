@@ -1,5 +1,6 @@
 /**
- * Created by tildas on 2017-03-22.
+ * Patrick Virtanen
+ * Matilda Höglund - 920222-2767
  */
 public class Aktie extends Vardesak {
 	private int antal;

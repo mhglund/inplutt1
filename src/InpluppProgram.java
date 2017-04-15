@@ -7,6 +7,8 @@ import java.util.*;
 
 /**
  * inlupp 1 PROG2
+ * Patrick Virtanen
+ * Matilda Höglund - 920222-2767
  */
 
 public class InpluppProgram extends JFrame implements ActionListener {
@@ -21,7 +23,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 	private JTextArea textRuta = new JTextArea("", 18, 17);
 	private JScrollPane skrollPanel = new JScrollPane(textRuta, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-		JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
 	private void run() {
 		setUp();
@@ -76,7 +78,7 @@ public class InpluppProgram extends JFrame implements ActionListener {
 
 		box.addActionListener(this);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(700, 400);
+		setSize(550, 400);
 		setLocation(300, 200);
 		setVisible(true);
 	}

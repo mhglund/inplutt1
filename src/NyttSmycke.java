@@ -1,7 +1,8 @@
 import javax.swing.*;
 
 /**
- * Created by tildas on 2017-04-05.
+ * Patrick Virtanen
+ * Matilda Höglund - 920222-2767
  */
 public class NyttSmycke extends JPanel{
 	private JTextField namnFalt = new JTextField(10);

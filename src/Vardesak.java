@@ -1,11 +1,11 @@
 
 /**
- * Created by tildas on 2017-03-22.
+ * Patrick Virtanen
+ * Matilda Höglund - 920222-2767
  */
 
 abstract public class Vardesak implements Comparable<Vardesak> {
 	private String namn;
-	private Double varde;
 
 	public Vardesak(String namn) {
 		this.namn = namn;
@@ -22,7 +22,6 @@ abstract public class Vardesak implements Comparable<Vardesak> {
 	abstract public Double getVarde();
 
 	public Double getRealVarde() {
-		varde = getVarde() * 1.25;
-		return varde;
+		return getVarde() * 1.25;
 	}
 }

@@ -1,12 +1,10 @@
-
-
 /**
- * Created by tildas on 2017-03-22.
+ * Patrick Virtanen
+ * Matilda Höglund - 920222-2767
  */
 public class Smycke extends Vardesak {
 	private int antalStenar;
 	private boolean material;   // true=guld, false=silver
-	private Double tempVarde;
 
 	public Smycke(String namn, int antalStenar, boolean material) {
 		super(namn);
@@ -31,6 +29,7 @@ public class Smycke extends Vardesak {
 	}
 
 	public Double getVarde() {
+		Double tempVarde;
 		if (material) {
 			tempVarde = 2000.00;
 		} else {

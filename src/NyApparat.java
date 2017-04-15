@@ -1,7 +1,8 @@
 import javax.swing.*;
 
 /**
- * Created by tildas on 2017-04-09.
+ * Patrick Virtanen
+ * Matilda Höglund - 920222-2767
  */
 public class NyApparat extends JPanel {
 	private JTextField namnFalt = new JTextField(10);
